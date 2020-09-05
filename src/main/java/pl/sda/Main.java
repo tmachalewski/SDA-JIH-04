@@ -13,6 +13,7 @@ public class Main {
                 new Configuration().configure("hibernate.cfg.xml")
                         .addAnnotatedClass(Actor.class)
                         .addAnnotatedClass(Movie.class)
+                        .addAnnotatedClass(Studio.class)
                         .buildSessionFactory();
 
 
@@ -44,15 +45,31 @@ public class Main {
 //            s.save(m3);
 //            tr.commit();
 //        }
-        try(Session s = sf.openSession()){
-            Transaction tr = s.beginTransaction();
-            Movie m3 = Movie.builder().movieId(new MovieId(1,"ML2")).title("MT3").build();
-            s.save(m3);
-            Movie mt = s.find(Movie.class, new MovieId(1,"ML2"));
-            tr.commit();
+//        try(Session s = sf.openSession()){
+//            Transaction tr = s.beginTransaction();
+//            Movie m3 = Movie.builder().movieId(new MovieId(1,"ML2")).title("MT3").build();
+//            s.save(m3);
+//            Movie mt = s.find(Movie.class, new MovieId(1,"ML2"));
+//            tr.commit();
+//
+//            var a =5;
+//        }
 
-            var a =5;
-        }
+//        try(Session s = sf.openSession()){
+//            Transaction tr = s.beginTransaction();
+//            Movie m3 = Movie.builder().movieId(new MovieId(1,"ML2")).title("MT3").build();
+//            Studio s3 = Studio.builder().location("SL1").build();
+//            s.save(m3);
+//            s.save(s3);
+//            tr.commit();
+//            tr.begin();
+//            m3.setStudio(s3);
+//            s3.setMovie(m3);
+//            s.update(m3);
+//            s.update(s3);
+//            tr.commit();
+//            var a =5;
+//        }
 
 
 

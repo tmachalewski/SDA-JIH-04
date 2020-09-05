@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 @Data
@@ -19,5 +20,8 @@ public class Movie {
     private MovieId movieId;
 
     private String title;
+
+    @OneToOne
+    private Studio studio;
 
 }
