@@ -21,6 +21,8 @@ public class Actor {
 
     private String name;
 
+    private int yearOfBirth;
+
     @ManyToMany
     private List<Movie> movies;
 

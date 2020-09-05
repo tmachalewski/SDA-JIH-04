@@ -1,9 +1,6 @@
 package pl.sda;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -13,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
+@ToString(exclude = "actors")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -22,6 +20,8 @@ public class Movie {
     private MovieId movieId;
 
     private String title;
+
+    private int yearOfProduction;
 
     @OneToOne(mappedBy="movie")
     private Studio studio;

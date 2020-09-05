@@ -75,11 +75,11 @@ public class Main {
 
         try(Session s = sf.openSession()){
             Transaction tr = s.beginTransaction();
-            Actor a1 = Actor.builder().name("AN1").movies(new ArrayList<>()).build();
-            Actor a2 = Actor.builder().name("AN2").movies(new ArrayList<>()).build();
+            Actor a1 = Actor.builder().name("AN1").yearOfBirth(1950).movies(new ArrayList<>()).build();
+            Actor a2 = Actor.builder().name("AN2").yearOfBirth(1975).movies(new ArrayList<>()).build();
 
-            Movie m1 = Movie.builder().movieId(new MovieId(1, "A")).title("MT1").actors(new ArrayList<>()).build();
-            Movie m2 = Movie.builder().movieId(new MovieId(2, "A")).title("MT2").actors(new ArrayList<>()).build();
+            Movie m1 = Movie.builder().movieId(new MovieId(1, "A")).yearOfProduction(1975).title("MT1").actors(new ArrayList<>()).build();
+            Movie m2 = Movie.builder().movieId(new MovieId(2, "A")).yearOfProduction(2000).title("MT2").actors(new ArrayList<>()).build();
 
             s.save(m1);
             s.save(m2);
@@ -96,6 +96,14 @@ public class Main {
             s.update(a1);
             s.update(a2);
 
+            tr.commit();
+
+            tr.begin();
+            Actor actor1 = s.createQuery("From Actor where yearOfBirth=1975", Actor.class).getSingleResult();
+            List<Actor> listOfActors = s.createQuery("From Actor", Actor.class).list();
+            Object o = s.createQuery("select count(name) from Actor").getSingleResult();
+            List<Object> obs = s.createQuery("select count(a.name), m.title from Actor as a inner join a.movies as m  group by m.title").list();
+            var a = 5;
             tr.commit();
         }
 
