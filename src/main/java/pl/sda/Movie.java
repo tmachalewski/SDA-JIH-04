@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +23,10 @@ public class Movie {
 
     private String title;
 
-    @OneToOne
+    @OneToOne(mappedBy="movie")
     private Studio studio;
+
+    @ManyToMany
+    private List<Actor> actors;
 
 }

@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Main {
@@ -70,6 +72,32 @@ public class Main {
 //            tr.commit();
 //            var a =5;
 //        }
+
+        try(Session s = sf.openSession()){
+            Transaction tr = s.beginTransaction();
+            Actor a1 = Actor.builder().name("AN1").movies(new ArrayList<>()).build();
+            Actor a2 = Actor.builder().name("AN2").movies(new ArrayList<>()).build();
+
+            Movie m1 = Movie.builder().movieId(new MovieId(1, "A")).title("MT1").actors(new ArrayList<>()).build();
+            Movie m2 = Movie.builder().movieId(new MovieId(2, "A")).title("MT2").actors(new ArrayList<>()).build();
+
+            s.save(m1);
+            s.save(m2);
+            s.save(a1);
+            s.save(a2);
+
+            m1.getActors().addAll(List.of(a1, a2));
+            m2.getActors().addAll(List.of(a1, a2));
+            a1.getMovies().addAll(List.of(m1, m2));
+            a2.getMovies().addAll(List.of(m1, m2));
+
+            s.update(m1);
+            s.update(m2);
+            s.update(a1);
+            s.update(a2);
+
+            tr.commit();
+        }
 
 
 
