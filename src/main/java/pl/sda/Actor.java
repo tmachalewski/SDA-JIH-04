@@ -1,30 +1,39 @@
 package pl.sda;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Entity
 public class Actor {
 
     @Id
-    private int id;
+    @GeneratedValue
+    @Column(length = 16)
+    private UUID id;
 
     private String name;
 
     public Actor() {
     }
 
-    public Actor(int id, String name) {
+    public Actor(UUID id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    public Actor(String name) {
+        this.name = name;
+    }
 
-    public int getId() {
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
